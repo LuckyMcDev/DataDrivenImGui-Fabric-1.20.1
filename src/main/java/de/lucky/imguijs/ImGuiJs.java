@@ -1,5 +1,6 @@
 package de.lucky.imguijs;
 
+import de.lucky.imguijs.config.ConfigManager;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +20,6 @@ public class ImGuiJs implements ModInitializer {
 		// Proceed with mild caution.
 
 		LOGGER.info("Hello Fabric world!");
-
+		ConfigManager.maybeWriteExampleKubeJSScript();
 	}
 }
