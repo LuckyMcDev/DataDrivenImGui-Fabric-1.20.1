@@ -1,12 +1,12 @@
 {
   "schemaVersion": 1,
-  "id": "imguijs",
+  "id": "datadrivenimgui",
   "version": "${version}",
 
-  "name": "ImGuiJs",
-  "description": "A Kubejs Addon to allow for cool custom ImGui Things, Imgui java wrapper by Spair",
+  "name": "Data Driven ImGUi",
+  "description": "A Mod, that allows for Custom ImGui things with a config. Also has some Kubejs Compat. Imgui java wrapper by Spair",
   "authors": [
-    "Me!"
+    "Lucky.dev"
   ],
   "contact": {
     "homepage": "null",
@@ -14,12 +14,12 @@
   },
 
   "license": "CC0-1.0",
-  "icon": "assets/imguijs/icon.png",
+  "icon": "assets/datadrivenimgui/icon.png",
 
   "environment": "*",
   "entrypoints": {
     "main": [
-      "de.lucky.imguijs.ImGuiJs"
+      "de.lucky.datadrivenimgui.DataDrivenImGui"
     ]
   },
   "mixins": [

@@ -74,8 +74,6 @@ dependencies {
 	lib "io.github.spair:imgui-java-natives-windows:${project.imgui_version}"
 	lib "io.github.spair:imgui-java-natives-linux:${project.imgui_version}"
 
-
-
 	// KubeJS
 	modImplementation("dev.latvian.mods:kubejs-fabric:${kubejs_version}")
 

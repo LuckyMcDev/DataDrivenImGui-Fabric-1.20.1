@@ -1,6 +1,6 @@
-package de.lucky.imguijs.mixin.imgui;
+package de.lucky.datadrivenimgui.mixin.imgui;
 
-import de.lucky.imguijs.imgui.ImGuiImpl;
+import de.lucky.datadrivenimgui.imgui.ImGuiImpl;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.RunArgs;
 import net.minecraft.client.util.Window;

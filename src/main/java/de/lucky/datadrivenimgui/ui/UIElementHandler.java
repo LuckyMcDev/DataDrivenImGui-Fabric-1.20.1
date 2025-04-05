@@ -1,8 +1,8 @@
-package de.lucky.imguijs.ui;
+package de.lucky.datadrivenimgui.ui;
 
-import de.lucky.imguijs.config.ConfigManager;
-import de.lucky.imguijs.config.UIConfig;
-import de.lucky.imguijs.config.ElementConfig;
+import de.lucky.datadrivenimgui.config.ConfigManager;
+import de.lucky.datadrivenimgui.config.UIConfig;
+import de.lucky.datadrivenimgui.config.ElementConfig;
 import imgui.ImGui;
 import imgui.type.ImString;
 import net.minecraft.client.MinecraftClient;

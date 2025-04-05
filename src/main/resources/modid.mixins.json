@@ -1,7 +1,7 @@
 {
   "required": true,
   "minVersion": "0.8",
-  "package": "de.lucky.imguijs.mixin",
+  "package": "de.lucky.datadrivenimgui.mixin",
   "compatibilityLevel": "JAVA_17",
   "mixins": [
   ],

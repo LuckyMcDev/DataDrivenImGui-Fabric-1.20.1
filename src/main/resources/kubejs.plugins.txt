@@ -1,1 +1,0 @@
-de.lucky.imguijs.kubejs.ImGuiJsKubejsPlugin

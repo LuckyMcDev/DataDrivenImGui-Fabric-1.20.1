@@ -3,7 +3,7 @@
  * by FlorianMichael/EnZaXD and contributors
  */
 
-package de.lucky.imguijs.imgui;
+package de.lucky.datadrivenimgui.imgui;
 
 import imgui.*;
 import imgui.extension.implot.ImPlot;

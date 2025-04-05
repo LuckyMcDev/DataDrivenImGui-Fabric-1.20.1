@@ -1,8 +1,8 @@
-package de.lucky.imguijs.kubejs;
+package de.lucky.datadrivenimgui.kubejs;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.lucky.imguijs.config.UIConfig;
+import de.lucky.datadrivenimgui.config.UIConfig;
 
 import java.io.IOException;
 import java.nio.file.Files;

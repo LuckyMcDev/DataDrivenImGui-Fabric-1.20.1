@@ -1,11 +1,11 @@
-package de.lucky.imguijs.mixin;
+package de.lucky.datadrivenimgui.mixin;
 
-import de.lucky.imguijs.config.ConfigManager;
-import de.lucky.imguijs.config.ElementConfig;
-import de.lucky.imguijs.config.UIConfig;
-import de.lucky.imguijs.config.WindowConfig;
-import de.lucky.imguijs.ui.UIElementHandler;
-import de.lucky.imguijs.imgui.ImGuiImpl;
+import de.lucky.datadrivenimgui.config.ConfigManager;
+import de.lucky.datadrivenimgui.config.ElementConfig;
+import de.lucky.datadrivenimgui.config.UIConfig;
+import de.lucky.datadrivenimgui.config.WindowConfig;
+import de.lucky.datadrivenimgui.ui.UIElementHandler;
+import de.lucky.datadrivenimgui.imgui.ImGuiImpl;
 import net.minecraft.client.render.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;

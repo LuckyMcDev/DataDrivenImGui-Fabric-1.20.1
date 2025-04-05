@@ -1,4 +1,4 @@
-package de.lucky.imguijs.config;
+package de.lucky.datadrivenimgui.config;
 
 import java.util.List;
 
