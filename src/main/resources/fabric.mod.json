@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "imguijs",
+  "version": "${version}",
+
+  "name": "ImGuiJs",
+  "description": "A Kubejs Addon to allow for cool custom ImGui Things, Imgui java wrapper by Spair",
+  "authors": [
+    "Me!"
+  ],
+  "contact": {
+    "homepage": "null",
+    "sources": "null"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/imguijs/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "de.lucky.imguijs.ImGuiJs"
+    ]
+  },
+  "mixins": [
+    "modid.mixins.json"
+  ],
+
+  "depends": {
+    "fabricloader": ">=0.14.17",
+    "fabric-api": "*",
+    "minecraft": "~1.20",
+    "java": ">=17"
+  },
+  "suggests": {
+    "another-mod": "*"
+  }
+}
