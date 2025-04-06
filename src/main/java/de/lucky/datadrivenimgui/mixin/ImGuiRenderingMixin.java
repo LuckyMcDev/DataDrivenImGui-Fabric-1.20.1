@@ -4,8 +4,7 @@ import de.lucky.datadrivenimgui.config.ConfigManager;
 import de.lucky.datadrivenimgui.config.ElementConfig;
 import de.lucky.datadrivenimgui.config.UIConfig;
 import de.lucky.datadrivenimgui.config.WindowConfig;
-import de.lucky.datadrivenimgui.kubejs.DataDrivenImGuiEvent;
-import de.lucky.datadrivenimgui.kubejs.DataDrivenImGuiEventInterface;
+import de.lucky.datadrivenimgui.kubejs.DataDrivenImGuiEvents;
 import de.lucky.datadrivenimgui.ui.UIElementHandler;
 import de.lucky.datadrivenimgui.imgui.ImGuiImpl;
 import imgui.ImGui;
@@ -112,9 +111,6 @@ public class ImGuiRenderingMixin {
 
                 ImGui.end();
             }
-
-            DataDrivenImGuiEvent.dispatch();
-
 
             // Render windows if visible
             if (config.windows != null) {
