@@ -22,7 +22,7 @@ public class ImGuiImpl {
         ImPlot.createContext();
 
         final ImGuiIO data = ImGui.getIO();
-        data.setIniFilename("modid.ini");
+        data.setIniFilename("datadrivenimgui.ini");
         data.setFontGlobalScale(1F);
         data.addConfigFlags(ImGuiConfigFlags.DockingEnable);
 
