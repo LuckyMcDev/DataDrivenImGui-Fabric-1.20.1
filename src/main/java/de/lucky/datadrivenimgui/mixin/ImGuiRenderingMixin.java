@@ -35,7 +35,7 @@ public class ImGuiRenderingMixin {
 
     // Path to the ImGui config file
     private static final String configFilePath = Paths.get("config", "imgui_ui_config.json").toString(); // Set this to your actual file path
-    private static final int MAX_TEXT_LENGTH = 2500;  // Cap the text at 2500 characters
+    private static int MAX_TEXT_LENGTH = 2000;
 
     // Flag to control the visibility of the config editor
     private static boolean configEditorVisible = false;
@@ -47,6 +47,7 @@ public class ImGuiRenderingMixin {
         // Load file content into the text editor
         if (textBuffer.length() == 0) {  // Only load the file once to avoid re-reading each frame
             loadFileContent();
+
         }
 
         ImGuiImpl.draw(io -> {
@@ -78,20 +79,12 @@ public class ImGuiRenderingMixin {
             if (!lastText.equals(textBuffer.toString())) {
                 textEditor.setText(getCappedText(textBuffer.toString()));  // Only update the editor if the text has changed
                 lastText = textBuffer.toString();  // Update the lastText with the current buffer
+                MAX_TEXT_LENGTH = lastText.length();
             }
 
             // Render the editor if visible
             if (configEditorVisible) {
                 ImGui.begin("Live Config Editor [ONLY WORKS WITHOUT KUBEJS]");
-                ImGui.beginChild("textEditor");
-                textEditor.render("Testing Text Editor");  // Render the editor
-                ImGui.endChild();
-                // Get the text from the editor and update the buffer only if changed
-                String currentText = textEditor.getText();
-                if (!currentText.equals(textBuffer.toString())) {
-                    textBuffer.setLength(0);  // Reset the buffer to avoid appending
-                    textBuffer.append(currentText);  // Update the buffer with the new text
-                }
 
                 // Optionally, add a button to save the file
                 if (ImGui.button("Save")) {
@@ -104,6 +97,16 @@ public class ImGuiRenderingMixin {
                 ImGui.sameLine();
                 if (ImGui.button("Hide WhiteSpaces")) {
                     textEditor.setShowWhitespaces(false);  // Hide whitespaces
+                }
+
+                ImGui.beginChild("textEditor");
+                textEditor.render("ConfigTextEditor");  // Render the editor
+                ImGui.endChild();
+                // Get the text from the editor and update the buffer only if changed
+                String currentText = textEditor.getText();
+                if (!currentText.equals(textBuffer.toString())) {
+                    textBuffer.setLength(0);  // Reset the buffer to avoid appending
+                    textBuffer.append(currentText);  // Update the buffer with the new text
                 }
 
                 ImGui.end();
