@@ -6,5 +6,5 @@ import dev.latvian.mods.kubejs.event.EventHandler;
 public interface DataDrivenImGuiEventInterface {
     EventGroup GROUP = EventGroup.of("DataDrivenImGuiJsEvents");
 
-    EventHandler EVENT_NAME = DataDrivenImGuiEventInterface.GROUP.server("draw", () ->  DataDrivenImGuiEvent.class);
+    EventHandler EVENT_NAME = DataDrivenImGuiEventInterface.GROUP.startup("draw", () ->  DataDrivenImGuiEvent.class);
 }
