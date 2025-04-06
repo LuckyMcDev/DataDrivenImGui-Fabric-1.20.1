@@ -7,6 +7,7 @@ package de.lucky.datadrivenimgui.imgui;
 
 import imgui.*;
 import imgui.extension.implot.ImPlot;
+import imgui.flag.ImGuiBackendFlags;
 import imgui.flag.ImGuiConfigFlags;
 import imgui.gl3.ImGuiImplGl3;
 import imgui.glfw.ImGuiImplGlfw;
@@ -23,8 +24,7 @@ public class ImGuiImpl {
         final ImGuiIO data = ImGui.getIO();
         data.setIniFilename("modid.ini");
         data.setFontGlobalScale(1F);
-
-        //Gh test
+        data.addConfigFlags(ImGuiConfigFlags.DockingEnable);
 
         // If you want to have custom fonts, you can use the following code here
 

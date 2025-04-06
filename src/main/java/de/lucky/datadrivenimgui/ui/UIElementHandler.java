@@ -53,7 +53,7 @@ public class UIElementHandler {
 
     private static void handleCheckbox(ElementConfig element, UIConfig config) {
         // Ensure the checkbox state is correct before rendering
-        boolean[] checked = new boolean[] { element.checked != null ? element.checked : false };
+        boolean[] checked = new boolean[] { element.checked != null && element.checked };
 
         // Render the checkbox and check if it was clicked
         if (ImGui.checkbox(element.label != null ? element.label : "Checkbox", checked[0])) {
