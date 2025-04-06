@@ -79,7 +79,6 @@ public class ImGuiRenderingMixin {
             if (!lastText.equals(textBuffer.toString())) {
                 textEditor.setText(getCappedText(textBuffer.toString()));  // Only update the editor if the text has changed
                 lastText = textBuffer.toString();  // Update the lastText with the current buffer
-                MAX_TEXT_LENGTH = lastText.length();
             }
 
             // Render the editor if visible

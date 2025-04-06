@@ -75,10 +75,10 @@ dependencies {
 	lib "io.github.spair:imgui-java-natives-linux:${project.imgui_version}"
 
 	// KubeJS
-	//modImplementation("dev.latvian.mods:kubejs-fabric:${kubejs_version}")
+	modImplementation("dev.latvian.mods:kubejs-fabric:${kubejs_version}")
 
 	// Arch
-	//modApi "dev.architectury:architectury-fabric:${architectury_version}"
+	modApi "dev.architectury:architectury-fabric:${architectury_version}"
 }
 
 base {
