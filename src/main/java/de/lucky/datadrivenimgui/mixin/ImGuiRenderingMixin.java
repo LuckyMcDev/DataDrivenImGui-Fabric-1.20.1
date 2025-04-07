@@ -1,16 +1,14 @@
+// File: src/main/java/de/lucky/datadrivenimgui/mixin/ImGuiRendererMixin.java
 package de.lucky.datadrivenimgui.mixin;
 
+import de.lucky.datadrivenimgui.config.DDIGParser;
+import de.lucky.datadrivenimgui.config.WindowVisibility;
 import de.lucky.datadrivenimgui.config.ConfigManager;
-import de.lucky.datadrivenimgui.config.ElementConfig;
-import de.lucky.datadrivenimgui.config.UIConfig;
-import de.lucky.datadrivenimgui.config.WindowConfig;
-import de.lucky.datadrivenimgui.kubejs.DataDrivenImGuiEvents;
-import de.lucky.datadrivenimgui.ui.UIElementHandler;
+import de.lucky.datadrivenimgui.config.DataDrivenImGuiEvent;
 import de.lucky.datadrivenimgui.imgui.ImGuiImpl;
 import imgui.ImGui;
 import imgui.extension.texteditor.TextEditor;
-import net.minecraft.client.gui.DrawContext;
-import net.minecraft.client.gui.screen.Screen;
+import net.minecraft.client.render.GameRenderer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -20,14 +18,13 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.List;
 
-@Mixin(Screen.class)
+@Mixin(GameRenderer.class)
 public class ImGuiRenderingMixin {
 
-    // Stores which windows are visible
-    private static final Map<String, boolean[]> windowVisibility = new HashMap<>();
+    // Flag to control the visibility of the config editor
+    private static boolean configEditorVisible = false;
 
     // Persist the text editor instance and the text buffer
     private static final TextEditor textEditor = new TextEditor();
@@ -35,34 +32,28 @@ public class ImGuiRenderingMixin {
     private static String lastText = "";  // Track the last state of the text to avoid appending
 
     // Path to the ImGui config file
-    private static final String configFilePath = Paths.get("config", "imgui_ui_config.json").toString(); // Set this to your actual file path
+    private static final String configFilePath = Paths.get("config", "gui.js").toString();
     private static int MAX_TEXT_LENGTH = 2000;
 
-    // Flag to control the visibility of the config editor
-    private static boolean configEditorVisible = false;
+
 
     @Inject(method = "render", at = @At("RETURN"))
-    public void render(DrawContext context, int mouseX, int mouseY, float delta, CallbackInfo ci) {
-        UIConfig config = ConfigManager.loadUIConfig();
+    public void render(float tickDelta, long startTime, boolean tick, CallbackInfo ci) {
+        // Load the DSL script from config folder
+        String ddigScript = ConfigManager.loadGuiScript();
 
-        // Load file content into the text editor
-        if (textBuffer.length() == 0) {  // Only load the file once to avoid re-reading each frame
-            loadFileContent();
-
-        }
-
+        // Now, render the DSL-defined UI
         ImGuiImpl.draw(io -> {
-            // Menu bar to toggle windows
+
+            // Build main menu bar for window toggling and config editor toggle
             if (ImGui.beginMainMenuBar()) {
                 if (ImGui.beginMenu("Windows")) {
-                    if (config.windows != null) {
-                        for (WindowConfig window : config.windows) {
-                            String title = window.title != null ? window.title : "Unnamed Window";
-                            windowVisibility.putIfAbsent(title, new boolean[]{true});
-                            boolean[] visible = windowVisibility.get(title);
-                            if (ImGui.menuItem(title, "", visible[0])) {
-                                visible[0] = !visible[0]; // toggle on click
-                            }
+                    // Extract window titles from the DSL script
+                    List<String> titles = DDIGParser.getWindowTitles(ddigScript);
+                    for (String title : titles) {
+                        boolean visible = WindowVisibility.isVisible(title);
+                        if (ImGui.menuItem(title, "", visible)) {
+                            WindowVisibility.toggle(title);
                         }
                     }
                     ImGui.endMenu();
@@ -74,12 +65,6 @@ public class ImGuiRenderingMixin {
                     ImGui.endMenu();
                 }
                 ImGui.endMainMenuBar();
-            }
-
-            // Ensure that the editor reflects the current state of the buffer
-            if (!lastText.equals(textBuffer.toString())) {
-                textEditor.setText(getCappedText(textBuffer.toString()));  // Only update the editor if the text has changed
-                lastText = textBuffer.toString();  // Update the lastText with the current buffer
             }
 
             // Render the editor if visible
@@ -112,27 +97,13 @@ public class ImGuiRenderingMixin {
                 ImGui.end();
             }
 
-            // Render windows if visible
-            if (config.windows != null) {
-                for (WindowConfig window : config.windows) {
-                    String title = window.title != null ? window.title : "Unnamed Window";
-                    windowVisibility.putIfAbsent(title, new boolean[]{true});
-                    boolean[] visible = windowVisibility.get(title);
 
-                    if (visible[0]) {
-                        boolean open = ImGui.begin(title);
-                        if (open && window.elements != null) {
-                            for (ElementConfig element : window.elements) {
-                                UIElementHandler.handleElement(element, config);
-                            }
-                        }
-                        ImGui.end(); // Always call end, regardless of open
-                    }
-                }
-            }
+            DataDrivenImGuiEvent event = new DataDrivenImGuiEvent();
+            DDIGParser.parseAndExecute(ddigScript, event);
         });
-    }
 
+
+    }
     // Method to load the content of the file into the text editor
     private void loadFileContent() {
         try {
@@ -164,4 +135,3 @@ public class ImGuiRenderingMixin {
         }
     }
 }
-
