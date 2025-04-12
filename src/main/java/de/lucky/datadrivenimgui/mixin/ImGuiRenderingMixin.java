@@ -107,8 +107,13 @@ public abstract class ImGuiRenderingMixin {
 
             DataDrivenImGuiEvent event = new DataDrivenImGuiEvent();
             DDIGParser.parseAndExecute(ddigScript, event);
-        });
 
+            if (ImGui.begin("Dev mode Editor")) {
+                ImGui.button("this is from java");
+                ImGui.end();
+            }
+
+        });
 
     }
     // Method to load the content of the file into the text editor

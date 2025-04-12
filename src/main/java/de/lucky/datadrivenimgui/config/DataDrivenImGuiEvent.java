@@ -6,12 +6,13 @@ public class DataDrivenImGuiEvent {
     private DataDrivenImGuiWindow currentWindow;
 
     public DataDrivenImGuiWindow beginWindow(String title) {
-        boolean opened = ImGui.begin(title);
-        DataDrivenImGuiWindow window = new DataDrivenImGuiWindow(opened);
-        if (opened) {
+        boolean opened = false;
+        if(opened = ImGui.begin(title)) {
+            DataDrivenImGuiWindow window = new DataDrivenImGuiWindow(opened);
             currentWindow = window;
+            return window;
         }
-        return window;
+        return null;
     }
 
     public void finishWindow() {

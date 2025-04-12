@@ -52,9 +52,9 @@ public class DataDrivenImGuiWindow {
     }
 
     public void endWindow() {
-        if (open) {
-            ImGui.end();
-            open = false;
-        }
+        if (!this.isOpen()) return; // or check if already ended
+        // Clean up the window resources only if it hasn’t been collapsed
+        ImGui.end();
+        // update window state, etc.
     }
 }
