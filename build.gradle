@@ -12,12 +12,6 @@ repositories {
 	// Loom adds the essential maven repositories to download Minecraft and libraries from automatically.
 	// See https://docs.gradle.org/current/userguide/declaring_repositories.html
 	// for more information about repositories.
-
-	maven {
-		// Shedaniel's maven (Architectury API)
-		url = "https://maven.architectury.dev"
-	}
-
 	maven {
 		url "https://maven.blamejared.com"
 		content {
@@ -28,18 +22,6 @@ repositories {
 		url "https://www.cursemaven.com"
 		content {
 			includeGroup "curse.maven"
-		}
-	}
-
-	maven {
-		url 'https://maven.shedaniel.me/'
-	}
-
-	// saps.dev Maven (KubeJS and Rhino)
-	maven {
-		url = "https://maven.saps.dev/minecraft"
-		content {
-			includeGroup "dev.latvian.mods"
 		}
 	}
 
@@ -74,11 +56,7 @@ dependencies {
 	lib "io.github.spair:imgui-java-natives-windows:${project.imgui_version}"
 	lib "io.github.spair:imgui-java-natives-linux:${project.imgui_version}"
 
-	// KubeJS
-	modImplementation("dev.latvian.mods:kubejs-fabric:${kubejs_version}")
-
-	// Arch
-	modApi "dev.architectury:architectury-fabric:${architectury_version}"
+	implementation 'org.codehaus.groovy:groovy-all:3.0.9'
 }
 
 base {

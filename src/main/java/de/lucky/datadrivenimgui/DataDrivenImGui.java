@@ -1,6 +1,5 @@
 package de.lucky.datadrivenimgui;
 
-import de.lucky.datadrivenimgui.config.ConfigManager;
 import net.fabricmc.api.ModInitializer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
