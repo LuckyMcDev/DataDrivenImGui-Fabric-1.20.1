@@ -30,6 +30,8 @@ public class ImGuiScriptExecutor {
 
                 shell.setVariable("ImGui", ImGui.class);
 
+                shell.setVariable("MinecraftClient", MinecraftClient.class);
+
                 //shell.setVariable("MinecraftClient", MinecraftClient.class);
 
                 // Try to execute the script
@@ -41,6 +43,8 @@ public class ImGuiScriptExecutor {
                     e.printStackTrace();
 
                     // Disable ImGui rendering on error
+
+
                     isImGuiEnabled = false;
                 }
             }
