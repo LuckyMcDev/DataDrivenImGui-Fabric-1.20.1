@@ -9,7 +9,9 @@ import de.lucky.datadrivenimgui.imgui.ImGuiImpl;
 import imgui.ImGui;
 import imgui.extension.texteditor.TextEditor;
 import net.minecraft.client.render.GameRenderer;
+import org.joml.Matrix4f;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
@@ -21,7 +23,9 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 
 @Mixin(GameRenderer.class)
-public class ImGuiRenderingMixin {
+public abstract class ImGuiRenderingMixin {
+
+    @Shadow public abstract void loadProjectionMatrix(Matrix4f projectionMatrix);
 
     // Flag to control the visibility of the config editor
     private static boolean configEditorVisible = false;
@@ -57,6 +61,8 @@ public class ImGuiRenderingMixin {
                         }
                     }
                     ImGui.endMenu();
+
+
                 }
                 if (ImGui.beginMenu("Debug")) {
                     if (ImGui.menuItem("Toggle Config Editor", "", configEditorVisible)) {
@@ -67,25 +73,26 @@ public class ImGuiRenderingMixin {
                 ImGui.endMainMenuBar();
             }
 
-            // Render the editor if visible
+            // THE EDITOR IS KINDA FUCKED, NEEDS A REWORK (gonna joink veils editor impl)
             if (configEditorVisible) {
-                ImGui.begin("Live Config Editor [ONLY WORKS WITHOUT KUBEJS]");
+                ImGui.begin("Live Config Editor");
+                loadFileContent();
 
                 // Optionally, add a button to save the file
                 if (ImGui.button("Save")) {
-                    saveFileContent();  // Call the save method when the button is clicked
+                    saveFileContent();
                 }
                 ImGui.sameLine();
                 if (ImGui.button("Show WhiteSpaces")) {
-                    textEditor.setShowWhitespaces(true);  // Show whitespaces
+                    textEditor.setShowWhitespaces(true);
                 }
                 ImGui.sameLine();
                 if (ImGui.button("Hide WhiteSpaces")) {
-                    textEditor.setShowWhitespaces(false);  // Hide whitespaces
+                    textEditor.setShowWhitespaces(false);
                 }
 
                 ImGui.beginChild("textEditor");
-                textEditor.render("ConfigTextEditor");  // Render the editor
+                textEditor.render("ConfigTextEditor");
                 ImGui.endChild();
                 // Get the text from the editor and update the buffer only if changed
                 String currentText = textEditor.getText();

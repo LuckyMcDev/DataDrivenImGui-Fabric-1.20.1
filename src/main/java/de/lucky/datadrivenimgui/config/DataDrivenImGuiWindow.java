@@ -2,7 +2,17 @@ package de.lucky.datadrivenimgui.config;
 
 import imgui.ImGui;
 
+import java.awt.*;
+
 public class DataDrivenImGuiWindow {
+
+    /*
+    Things from imgui to add:
+
+    ImGui.beginPopup()
+    ImGui.endPopup()
+
+     */
     private boolean open;
 
     public DataDrivenImGuiWindow(boolean open) {
@@ -13,8 +23,18 @@ public class DataDrivenImGuiWindow {
         return open;
     }
 
+    public DataDrivenImGuiWindow setNextWindowSize(float width, float height ) {
+        ImGui.setNextWindowSize(width, height);
+        return this;
+    }
+
     public DataDrivenImGuiWindow addText(String text) {
         ImGui.text(text);
+        return this;
+    }
+
+    public DataDrivenImGuiWindow sameline() {
+        ImGui.sameLine();
         return this;
     }
 
